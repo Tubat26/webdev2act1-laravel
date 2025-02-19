@@ -31,6 +31,7 @@ class StudentsController extends Controller
         $addNew->address = $request->address;
         $addNew->save();
 
+        
         return back()->with('success', 'Student added successfully!');
     }
 }
