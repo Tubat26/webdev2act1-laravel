@@ -3,4 +3,8 @@
 use App\Http\Controllers\StudentsController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [StudentsController::class, 'myWelcomeView']); 
+//View
+Route::get('/', [StudentsController::class, 'myWelcomeView'])->name("std.myWelcomeView"); 
+
+//Create
+Route::post("/create", [StudentsController::class, "createNewStd"])->name("std.createNew");
