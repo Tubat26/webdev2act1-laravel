@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Students;
-use App\Models\User;
 use Illuminate\Http\Request;
 
 class StudentsController extends Controller
@@ -11,8 +10,7 @@ class StudentsController extends Controller
     public function myWelcomeView()
     {
         $students = Students::all();
-        $users = User::all();
-        return view('welcome', compact('students', 'users'));
+        return view('welcome', compact('students'));
     }
 
     public function createNewStd(Request $request)
@@ -24,14 +22,41 @@ class StudentsController extends Controller
             'address' => 'required'
         ]);
 
-        $addNew = new Students();
-        $addNew->name = $request->name;
-        $addNew->age = $request->age;
-        $addNew->gender = $request->gender;
-        $addNew->address = $request->address;
-        $addNew->save();
+        Students::create([
+            'name' => $request->name,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'address' => $request->address
+        ]);
 
-        
         return back()->with('success', 'Student added successfully!');
+    }
+
+    public function updateStd(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required|max:30',
+            'age' => 'required|numeric',
+            'gender' => 'required|max:6',
+            'address' => 'required'
+        ]);
+
+        $student = Students::findOrFail($id);
+        $student->update([
+            'name' => $request->name,
+            'age' => $request->age,
+            'gender' => $request->gender,
+            'address' => $request->address
+        ]);
+
+        return back()->with('success', 'Student updated successfully!');
+    }
+
+    public function deleteStd($id)
+    {
+        $student = Students::findOrFail($id);
+        $student->delete();
+
+        return back()->with('success', 'Student deleted successfully!');
     }
 }
