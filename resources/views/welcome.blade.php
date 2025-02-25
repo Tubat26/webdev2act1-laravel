@@ -9,9 +9,13 @@
     </div>
     @endif
 
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#addNewModal">
-        Add Student
-    </button>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Student Records</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNewModal">
+            <i class="bi bi-plus-lg"></i> Add Student
+        </button>
+    </div>
 
     <table class="table table-striped">
         <thead class="table-dark">
@@ -33,19 +37,18 @@
                 <td>{{ $std->gender }}</td>
                 <td>{{ $std->address }}</td>
                 <td>
-                    <!-- Edit Button -->
-                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $std->id }}">Edit</button>
-                    
-                    <!-- Delete Form -->
-                    <form action="{{ route('std.delete', $std->id) }}" method="POST" style="display:inline-block;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
-                    </form>
-                </td>
+    <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#editModal{{ $std->id }}">Update</button>
+
+    <form action="{{ route('std.delete', $std->id) }}" method="POST" style="display:inline-block;">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this student?')">Delete</button>
+    </form>
+</td>
+
             </tr>
 
-            <!-- Edit Modal -->
+
             <div class="modal fade" id="editModal{{ $std->id }}" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -89,7 +92,7 @@
         </tbody>
     </table>
 
-    <!-- Add Student Modal -->
+   
     <div class="modal fade" id="addNewModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
