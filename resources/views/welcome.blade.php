@@ -67,7 +67,7 @@
                                 @method('PUT')
 
                                 <div class="mb-3">
-                                    <label class="form-label">Name</label>
+                                    <label class="form-label">Names</label>
                                     <input type="text" class="form-control" name="name" value="{{ $std->name }}">
                                 </div>
 
